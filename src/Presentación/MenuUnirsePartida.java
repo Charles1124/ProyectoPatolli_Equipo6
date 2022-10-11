@@ -4,25 +4,112 @@
  */
 package Presentación;
 
-import java.awt.Graphics;
-import java.awt.Image;
-import javax.swing.ImageIcon;
-import javax.swing.JPanel;
+
+import javax.swing.JOptionPane;
 
 /**
+ * Frame o pantalla de Unirse a Partida, donde un usuario introduce su nickname y
+ * el monto de apuesta.
  *
- * @author cyt88
+ * @author Carlos A. Valle Encinas - David Sotelo Palafox Equipo#6
  */
 public class MenuUnirsePartida extends javax.swing.JFrame {
-FondoPanel fondo=new FondoPanel();
+Fondo fondo=new Fondo();
     /**
-     * Creates new form MenuUnirsePartida
+     * Constructor del Frame.
      */
     public MenuUnirsePartida() {
         this.setContentPane(fondo); 
         initComponents();
     }
 
+    /**
+     * Método validaNombre que realiza las validaciones principales para el nick
+     * del usuario tales como el tamaño de caracteres y que solo se permitan
+     * alfanuméricos.
+     *
+     * @param evt: Evento al que escucha.
+     */
+    public void validaNombre(java.awt.event.KeyEvent evt){
+        validaNombre.getText().trim();
+        if(validaNombre.getText().length()>12)
+        {
+           evt.consume();
+           int msg=1;
+           mostrarError(msg);
+        }
+        char car= evt.getKeyChar();
+        if(Character.isLetterOrDigit(car)){
+           
+        } 
+        else
+        {
+           evt.consume();
+           getToolkit().beep();
+        }
+    }
+
+    /**
+     * Método validaApuesta que realiza las validaciones principales para el monto
+     * del usuario tales como el tamaño de caracteres y que solo se permitan
+     * numéricos.
+     *
+     * @param evt: Evento al que escucha.
+     */
+    public void validaApuesta(java.awt.event.KeyEvent evt){
+      validaMonto.getText().trim(); 
+      if(validaMonto.getText().length()>=7)
+      {
+        evt.consume();
+        int msg=2; 
+        mostrarError(msg);
+      }
+      char car= evt.getKeyChar();
+      if(Character.isDigit(car)){
+
+      }
+      else
+      {
+         evt.consume();
+         getToolkit().beep();
+      }
+    }
+
+    /**
+     * Método mostrarError que recibe como parametro un entero con el tipo de
+     * error dependiendo el campo de texto que se esta validando.
+     *
+     * @param msg: Tipo mensaje.
+     */
+    public void mostrarError(int msg)
+    {
+       if(msg==1)
+       {
+        JOptionPane.showMessageDialog(null, "Solo se permiten como máximo 12 caracteres alfanuméricos", 
+        "¡Mensaje de Advertencia!", JOptionPane.WARNING_MESSAGE);
+       }
+       if(msg==2)
+       {
+         JOptionPane.showMessageDialog(null, "Solo se permiten como máximo 6 caracteres numéricos", 
+        "¡Mensaje de Advertencia!", JOptionPane.WARNING_MESSAGE);
+       }
+       if(msg==3)
+       {
+         JOptionPane.showMessageDialog(null, "Al parecer se le ha olvidado rellenar un campo!", 
+        "¡Mensaje de Error!", JOptionPane.ERROR_MESSAGE);
+       }
+    }
+
+    /**
+     * Método que permite al usuario volver al Menu Principal.
+     *
+     * @param evt: Evento al que escucha.
+     */
+    public void volverMenuPrincipal(java.awt.event.ActionEvent evt){
+      MenuPrincipal principal=new MenuPrincipal();
+      principal.setVisible(true);
+      this.dispose();
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -35,8 +122,8 @@ FondoPanel fondo=new FondoPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        txtNombre = new javax.swing.JTextField();
-        txtMonto = new javax.swing.JTextField();
+        validaNombre = new javax.swing.JTextField();
+        validaMonto = new javax.swing.JTextField();
         btnVolver = new javax.swing.JButton();
         btnBuscarPartida = new javax.swing.JButton();
 
@@ -53,6 +140,18 @@ FondoPanel fondo=new FondoPanel();
         jLabel3.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Monto:");
+
+        validaNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                validaNombreKeyTyped(evt);
+            }
+        });
+
+        validaMonto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                validaMontoKeyTyped(evt);
+            }
+        });
 
         btnVolver.setBackground(new java.awt.Color(204, 255, 255));
         btnVolver.setFont(new java.awt.Font("Segoe UI Semibold", 1, 18)); // NOI18N
@@ -88,34 +187,34 @@ FondoPanel fondo=new FondoPanel();
                     .addComponent(jLabel3))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtMonto, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(validaNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(validaMonto, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(30, Short.MAX_VALUE)
-                        .addComponent(jLabel1))
+                        .addComponent(jLabel1)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(23, 23, 23)
                         .addComponent(btnVolver)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnBuscarPartida)))
-                .addGap(37, 37, 37))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                        .addComponent(btnBuscarPartida)
+                        .addGap(37, 37, 37))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(24, 24, 24)
+                .addGap(28, 28, 28)
                 .addComponent(jLabel1)
-                .addGap(34, 34, 34)
+                .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(validaNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(txtMonto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(validaMonto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -127,19 +226,51 @@ FondoPanel fondo=new FondoPanel();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+     /**
+     * Métdo oyente que llama al método volverMenuPrincipal. 
+     *
+     * @param evt: Evento al que escucha.
+     */
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
         // TODO add your handling code here:
-       MenuPrincipal inicio=new MenuPrincipal();
-       inicio.setVisible(true);
-       this.dispose();
+       volverMenuPrincipal(evt);
     }//GEN-LAST:event_btnVolverActionPerformed
 
     private void btnBuscarPartidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarPartidaActionPerformed
         // TODO add your handling code here:
-        PantallaPartida partida=new PantallaPartida();
-        partida.setVisible(true);
-        this.dispose();
+
+        if(validaNombre.getText().isEmpty() || validaMonto.getText().isEmpty())
+        {
+           int msg=3;
+           mostrarError(msg);
+        }
+        else
+        {
+           PantallaPartida partida=new PantallaPartida();
+           partida.setVisible(true);
+           this.dispose();
+        }
     }//GEN-LAST:event_btnBuscarPartidaActionPerformed
+    
+    /**
+     * Método oyente de validaNombreKeyTyped que llama al método validaNombre.
+     *
+     * @param evt: Evento al que escucha.
+     */
+    private void validaNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_validaNombreKeyTyped
+        // TODO add your handling code here:
+        validaNombre(evt);
+    }//GEN-LAST:event_validaNombreKeyTyped
+
+    /**
+     * Método oyente de validaMontoKeyTyped que llama al método validaApuesta.
+     *
+     * @param evt: Evento al que escucha.
+     */
+    private void validaMontoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_validaMontoKeyTyped
+        // TODO add your handling code here:
+        validaApuesta(evt);
+    }//GEN-LAST:event_validaMontoKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -148,22 +279,10 @@ FondoPanel fondo=new FondoPanel();
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JTextField txtMonto;
-    private javax.swing.JTextField txtNombre;
+    private javax.swing.JTextField validaMonto;
+    private javax.swing.JTextField validaNombre;
     // End of variables declaration//GEN-END:variables
- class FondoPanel extends JPanel
-   {
-      private Image imagen; 
 
-      @Override
-      public void paint(Graphics g)
-      {
-         imagen= new ImageIcon(getClass().getResource("/img/o-ANCIENT-MAYANS-facebook.jpg")).getImage(); 
-         g.drawImage(imagen, 0, 0, getWidth(), getHeight(), this); 
-         setOpaque(false);
-         super.paint(g);
-      }    
-   }
 
 }
 

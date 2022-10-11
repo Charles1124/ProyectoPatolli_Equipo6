@@ -4,20 +4,22 @@
  */
 package Presentación;
 
-import java.awt.Graphics;
 import java.awt.Image;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import javax.swing.JPanel;
+import javax.swing.JOptionPane;
 
 /**
+ * Frame o pantalla de Iniciar Partida, donde un usuario introduce su nickname y
+ * el monto de apuesta, además cuenta con la opción de dirigirse a la pantalla
+ * de configurar partida.
  *
- * @author cyt88
+ * @author Carlos A. Valle Encinas - David Sotelo Palafox Equipo#6
  */
 public class MenuIniciaPartida extends javax.swing.JFrame {
-FondoPanel fondo=new FondoPanel();
+Fondo fondo=new Fondo();  
     /**
-     * Creates new form MenuIniciaPartida
+     * Constructor del Frame.
      */
     public MenuIniciaPartida() {
         this.setContentPane(fondo);  
@@ -25,11 +27,103 @@ FondoPanel fondo=new FondoPanel();
         tamañoConfig();
     }
 
+    /**
+     * Método tamañoConfig el cual permite ajustar el tamaño del icono
+     * configuración ubicado en el botón btnConfig.
+     */
     public void tamañoConfig() {
         ImageIcon play;
         play = new ImageIcon(getClass().getResource("/img/config.png"));
         Icon png = new ImageIcon(play.getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT));
-        btnConfig.setIcon(png);
+        ConfigurarPartida.setIcon(png);
+    }
+
+    /**
+     * Método validaNombre que realiza las validaciones principales para el nick
+     * del usuario tales como el tamaño de caracteres y que solo se permitan
+     * alfanuméricos.
+     *
+     * @param evt: Evento al que escucha.
+     */
+    public void validaNombre(java.awt.event.KeyEvent evt){
+        validaNombre.getText().trim();
+        if(validaNombre.getText().length()>12)
+        {
+           evt.consume();
+           int msg=1;
+           mostrarError(msg);
+        }
+        char car= evt.getKeyChar();
+        if(Character.isLetterOrDigit(car)){
+           
+        } 
+        else
+        {
+           evt.consume();
+           getToolkit().beep();
+        }
+    }
+
+    /**
+     * Método validaApuesta que realiza las validaciones principales para el monto
+     * del usuario tales como el tamaño de caracteres y que solo se permitan
+     * numéricos.
+     *
+     * @param evt: Evento al que escucha.
+     */
+    public void validaApuesta(java.awt.event.KeyEvent evt){
+      validaMonto.getText().trim(); 
+      if(validaMonto.getText().length()>=7)
+      {
+        evt.consume();
+        int msg=2; 
+        mostrarError(msg);
+      }
+      char car= evt.getKeyChar();
+      if(Character.isDigit(car)){
+
+      }
+      else
+      {
+         evt.consume();
+         getToolkit().beep();
+      }
+    }
+
+    /**
+     * Método mostrarError que recibe como parametro un entero con el tipo de
+     * error dependiendo el campo de texto que se esta validando.
+     *
+     * @param msg: Tipo mensaje.
+     */
+    public void mostrarError(int msg)
+    {
+       if(msg==1)
+       {
+        JOptionPane.showMessageDialog(null, "Solo se permiten como máximo 12 caracteres alfanuméricos", 
+        "¡Mensaje de Advertencia!", JOptionPane.WARNING_MESSAGE);
+       }
+       if(msg==2)
+       {
+         JOptionPane.showMessageDialog(null, "Solo se permiten como máximo 6 caracteres numéricos", 
+        "¡Mensaje de Advertencia!", JOptionPane.WARNING_MESSAGE);
+       }
+       if(msg==3)
+       {
+         JOptionPane.showMessageDialog(null, "Al parecer se le ha olvidado rellenar un campo!", 
+        "¡Mensaje de Error!", JOptionPane.ERROR_MESSAGE);
+       }
+    }
+    
+    /**
+     * Método que permite al usuario volver al Menu Principal.
+     *
+     * @param evt: Evento al que escucha.
+     */
+    public void volverMenuPrincipal(java.awt.event.ActionEvent evt){
+      MenuPrincipal principal=new MenuPrincipal();
+      principal.setVisible(true);
+      this.dispose();
     }
 
     /**
@@ -41,168 +135,206 @@ FondoPanel fondo=new FondoPanel();
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        txtNombre = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        btnVolver = new javax.swing.JButton();
-        btnConfig = new javax.swing.JButton();
-        btnBuscar = new javax.swing.JButton();
-        txtMonto = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
+        validaNombre = new javax.swing.JTextField();
+        lblNombre = new javax.swing.JLabel();
+        lblMonto = new javax.swing.JLabel();
+        volverMenuPrincipal = new javax.swing.JButton();
+        ConfigurarPartida = new javax.swing.JButton();
+        BuscarPartida = new javax.swing.JButton();
+        validaMonto = new javax.swing.JTextField();
+        lblInicia = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Nombre:");
-
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Monto:");
-
-        btnVolver.setBackground(new java.awt.Color(204, 255, 255));
-        btnVolver.setFont(new java.awt.Font("Segoe UI Semibold", 1, 18)); // NOI18N
-        btnVolver.setForeground(new java.awt.Color(102, 51, 0));
-        btnVolver.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/volver.png"))); // NOI18N
-        btnVolver.setText("Volver");
-        btnVolver.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnVolverActionPerformed(evt);
+        validaNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                validaNombreKeyTyped(evt);
             }
         });
 
-        btnConfig.setBackground(new java.awt.Color(204, 255, 255));
-        btnConfig.setFont(new java.awt.Font("Segoe UI Semibold", 1, 18)); // NOI18N
-        btnConfig.setForeground(new java.awt.Color(102, 51, 0));
-        btnConfig.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/config.png"))); // NOI18N
-        btnConfig.setText("Configurar Partida");
-        btnConfig.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
-        btnConfig.addActionListener(new java.awt.event.ActionListener() {
+        lblNombre.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
+        lblNombre.setForeground(new java.awt.Color(255, 255, 255));
+        lblNombre.setText("Nombre:");
+
+        lblMonto.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
+        lblMonto.setForeground(new java.awt.Color(255, 255, 255));
+        lblMonto.setText("Monto:");
+
+        volverMenuPrincipal.setBackground(new java.awt.Color(204, 255, 255));
+        volverMenuPrincipal.setFont(new java.awt.Font("Segoe UI Semibold", 1, 18)); // NOI18N
+        volverMenuPrincipal.setForeground(new java.awt.Color(102, 51, 0));
+        volverMenuPrincipal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/volver.png"))); // NOI18N
+        volverMenuPrincipal.setText("Volver");
+        volverMenuPrincipal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnConfigActionPerformed(evt);
+                volverMenuPrincipalActionPerformed(evt);
             }
         });
 
-        btnBuscar.setBackground(new java.awt.Color(204, 255, 255));
-        btnBuscar.setFont(new java.awt.Font("Segoe UI Semibold", 1, 18)); // NOI18N
-        btnBuscar.setForeground(new java.awt.Color(102, 51, 0));
-        btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/buscar.png"))); // NOI18N
-        btnBuscar.setText("Buscar Partida");
-        btnBuscar.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
-        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+        ConfigurarPartida.setBackground(new java.awt.Color(204, 255, 255));
+        ConfigurarPartida.setFont(new java.awt.Font("Segoe UI Semibold", 1, 18)); // NOI18N
+        ConfigurarPartida.setForeground(new java.awt.Color(102, 51, 0));
+        ConfigurarPartida.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/config.png"))); // NOI18N
+        ConfigurarPartida.setText("Configurar Partida");
+        ConfigurarPartida.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        ConfigurarPartida.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscarActionPerformed(evt);
+                ConfigurarPartidaActionPerformed(evt);
             }
         });
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 3, 48)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Iniciar Partida");
+        BuscarPartida.setBackground(new java.awt.Color(204, 255, 255));
+        BuscarPartida.setFont(new java.awt.Font("Segoe UI Semibold", 1, 18)); // NOI18N
+        BuscarPartida.setForeground(new java.awt.Color(102, 51, 0));
+        BuscarPartida.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/buscar.png"))); // NOI18N
+        BuscarPartida.setText("Buscar Partida");
+        BuscarPartida.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        BuscarPartida.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BuscarPartidaActionPerformed(evt);
+            }
+        });
+
+        validaMonto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                validaMontoKeyTyped(evt);
+            }
+        });
+
+        lblInicia.setFont(new java.awt.Font("Segoe UI", 3, 48)); // NOI18N
+        lblInicia.setForeground(new java.awt.Color(255, 255, 255));
+        lblInicia.setText("Iniciar Partida");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(8, 8, 8)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel1)
-                        .addComponent(jLabel2)))
+                .addGap(81, 81, 81)
+                .addComponent(lblInicia)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
+                        .addGap(34, 34, 34)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnBuscar))
-                            .addComponent(txtMonto, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(78, Short.MAX_VALUE))
+                            .addComponent(lblNombre)
+                            .addComponent(lblMonto)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(volverMenuPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnConfig, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(75, 75, 75))))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(116, 116, 116)
-                .addComponent(jLabel3)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 114, Short.MAX_VALUE)
+                        .addComponent(ConfigurarPartida, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(23, 23, 23))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(validaNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(validaMonto, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(BuscarPartida)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel3)
+                .addComponent(lblInicia)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblNombre)
+                    .addComponent(validaNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(BuscarPartida, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(122, 122, 122)
-                        .addComponent(btnVolver))
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(txtMonto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addComponent(btnConfig, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap(18, Short.MAX_VALUE))
+                    .addComponent(lblMonto)
+                    .addComponent(validaMonto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(ConfigurarPartida, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(volverMenuPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(15, 15, 15))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
+    /**
+     * Métdo oyente que llama al método volverMenuPrincipal.
+     *
+     * @param evt: Evento al que escucha.
+     */
+    private void volverMenuPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_volverMenuPrincipalActionPerformed
         // TODO add your handling code here:
-        MenuPrincipal principal=new MenuPrincipal();
-        principal.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_btnVolverActionPerformed
+       volverMenuPrincipal(evt);
+    }//GEN-LAST:event_volverMenuPrincipalActionPerformed
 
-    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+    /**
+     * Método oyente que muestra la pantalla de Pantalla Partida.
+     *
+     * @param evt: Evento al que escucha.
+     */
+    private void BuscarPartidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuscarPartidaActionPerformed
         // TODO add your handling code here:
-        PantallaPartida partida=new PantallaPartida();
-        partida.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_btnBuscarActionPerformed
+         
+        if(validaNombre.getText().isEmpty() || validaMonto.getText().isEmpty())
+        {
+           int msg=3;
+           mostrarError(msg);
+        }
+        else
+        {
+           PantallaPartida pantallaPartida=new PantallaPartida();
+           pantallaPartida.setVisible(true);
+           this.dispose();
+        }
+    }//GEN-LAST:event_BuscarPartidaActionPerformed
 
-    private void btnConfigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfigActionPerformed
+    /**
+     * Método oyente que muestra la pantalla de MenuConfigurar.
+     *
+     * @param evt: Evento al que escucha.
+     */
+    private void ConfigurarPartidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConfigurarPartidaActionPerformed
         // TODO add your handling code here:
         MenuConfigurar confi=new MenuConfigurar();
         confi.setVisible(true);
-        this.dispose();;
-    }//GEN-LAST:event_btnConfigActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_ConfigurarPartidaActionPerformed
+
+    /**
+     * Método oyente de validaNombreKeyTyped que llama al método validaNombre.
+     *
+     * @param evt: Evento al que escucha.
+     */
+    private void validaNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_validaNombreKeyTyped
+        // TODO add your handling code here:
+       validaNombre(evt);
+    }//GEN-LAST:event_validaNombreKeyTyped
+
+    /**
+     * Método oyente de validaMontoKeyTyped que llama al método validaApuesta.
+     *
+     * @param evt: Evento al que escucha.
+     */
+    private void validaMontoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_validaMontoKeyTyped
+        // TODO add your handling code here:
+        validaApuesta(evt);
+    }//GEN-LAST:event_validaMontoKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnBuscar;
-    private javax.swing.JButton btnConfig;
-    private javax.swing.JButton btnVolver;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JTextField txtMonto;
-    private javax.swing.JTextField txtNombre;
+    private javax.swing.JButton BuscarPartida;
+    private javax.swing.JButton ConfigurarPartida;
+    private javax.swing.JLabel lblInicia;
+    private javax.swing.JLabel lblMonto;
+    private javax.swing.JLabel lblNombre;
+    private javax.swing.JTextField validaMonto;
+    private javax.swing.JTextField validaNombre;
+    private javax.swing.JButton volverMenuPrincipal;
     // End of variables declaration//GEN-END:variables
-
-class FondoPanel extends JPanel
-   {
-      private Image imagen; 
-
-      @Override
-      public void paint(Graphics g)
-      {
-         imagen= new ImageIcon(getClass().getResource("/img/o-ANCIENT-MAYANS-facebook.jpg")).getImage(); 
-         g.drawImage(imagen, 0, 0, getWidth(), getHeight(), this); 
-         setOpaque(false);
-         super.paint(g);
-      }    
-   }
-
+ 
 }

@@ -13,13 +13,15 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
- *
- * @author cyt88
+ *Frame principal que muesta el menu inicial con las opciones de iniciar partida
+ * o unirse a una nueva. 
+ * @author Carlos A. Valle Encinas - David Sotelo Palafox. Equipo #6
  */
 public class MenuPrincipal extends javax.swing.JFrame {
-FondoPanel fondo=new FondoPanel();
+Fondo fondo=new Fondo();
+    
     /**
-     * Creates new form MenuPrincipal
+     * Constructor del Menu Principal.
      */
     public MenuPrincipal() 
     { 
@@ -28,18 +30,28 @@ FondoPanel fondo=new FondoPanel();
         tamañoPlay();
         tamañoUnirse();
     }
-    public void tamañoPlay() {
+    
+/**
+*Método que permite ajustar el tamaño del icono "jugar" ubicado en el paquete
+*img.
+*/
+public void tamañoPlay() 
+    {
         ImageIcon play;
         play = new ImageIcon(getClass().getResource("/img/play.png"));
         Icon png = new ImageIcon(play.getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT));
-        btnIniciarPartida.setIcon(png);
+        muestraPantallaIniciarPartida.setIcon(png);
     }
 
+/**
+*Método que permite ajustar el tamaño del icono "unirse" ubicado en el paquete
+*img. 
+*/
     public void tamañoUnirse() {
         ImageIcon uni;
         uni = new ImageIcon(getClass().getResource("/img/unirse.png"));
         Icon png = new ImageIcon(uni.getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT));
-        btnUnirsePartida.setIcon(png);
+        menuUnirsePartida.setIcon(png);
     }
 
     /**
@@ -52,8 +64,8 @@ FondoPanel fondo=new FondoPanel();
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        btnIniciarPartida = new javax.swing.JButton();
-        btnUnirsePartida = new javax.swing.JButton();
+        muestraPantallaIniciarPartida = new javax.swing.JButton();
+        menuUnirsePartida = new javax.swing.JButton();
         btnSalirJuego = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         menuAcercaDe = new javax.swing.JMenu();
@@ -66,27 +78,27 @@ FondoPanel fondo=new FondoPanel();
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Patolli");
 
-        btnIniciarPartida.setBackground(new java.awt.Color(204, 255, 255));
-        btnIniciarPartida.setFont(new java.awt.Font("Segoe UI Semibold", 1, 18)); // NOI18N
-        btnIniciarPartida.setForeground(new java.awt.Color(102, 51, 0));
-        btnIniciarPartida.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/play.png"))); // NOI18N
-        btnIniciarPartida.setText("Iniciar Partida");
-        btnIniciarPartida.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
-        btnIniciarPartida.addActionListener(new java.awt.event.ActionListener() {
+        muestraPantallaIniciarPartida.setBackground(new java.awt.Color(204, 255, 255));
+        muestraPantallaIniciarPartida.setFont(new java.awt.Font("Segoe UI Semibold", 1, 18)); // NOI18N
+        muestraPantallaIniciarPartida.setForeground(new java.awt.Color(102, 51, 0));
+        muestraPantallaIniciarPartida.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/play.png"))); // NOI18N
+        muestraPantallaIniciarPartida.setText("Iniciar Partida");
+        muestraPantallaIniciarPartida.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        muestraPantallaIniciarPartida.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnIniciarPartidaActionPerformed(evt);
+                muestraPantallaIniciarPartidaActionPerformed(evt);
             }
         });
 
-        btnUnirsePartida.setBackground(new java.awt.Color(204, 255, 255));
-        btnUnirsePartida.setFont(new java.awt.Font("Segoe UI Semibold", 1, 18)); // NOI18N
-        btnUnirsePartida.setForeground(new java.awt.Color(102, 51, 0));
-        btnUnirsePartida.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/unirse.png"))); // NOI18N
-        btnUnirsePartida.setText("Unirse a Partida");
-        btnUnirsePartida.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
-        btnUnirsePartida.addActionListener(new java.awt.event.ActionListener() {
+        menuUnirsePartida.setBackground(new java.awt.Color(204, 255, 255));
+        menuUnirsePartida.setFont(new java.awt.Font("Segoe UI Semibold", 1, 18)); // NOI18N
+        menuUnirsePartida.setForeground(new java.awt.Color(102, 51, 0));
+        menuUnirsePartida.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/unirse.png"))); // NOI18N
+        menuUnirsePartida.setText("Unirse a Partida");
+        menuUnirsePartida.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        menuUnirsePartida.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUnirsePartidaActionPerformed(evt);
+                menuUnirsePartidaActionPerformed(evt);
             }
         });
 
@@ -103,11 +115,6 @@ FondoPanel fondo=new FondoPanel();
         });
 
         menuAcercaDe.setText("Acerca De");
-        menuAcercaDe.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuAcercaDeActionPerformed(evt);
-            }
-        });
 
         menuInfo.setText("Info.");
         menuInfo.addActionListener(new java.awt.event.ActionListener() {
@@ -131,8 +138,8 @@ FondoPanel fondo=new FondoPanel();
                     .addGroup(layout.createSequentialGroup()
                         .addGap(97, 97, 97)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnUnirsePartida, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnIniciarPartida, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(menuUnirsePartida, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(muestraPantallaIniciarPartida, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnSalirJuego, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(133, 133, 133)
@@ -144,9 +151,9 @@ FondoPanel fondo=new FondoPanel();
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnIniciarPartida, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(muestraPantallaIniciarPartida, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnUnirsePartida, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(menuUnirsePartida, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnSalirJuego)
                 .addContainerGap(29, Short.MAX_VALUE))
@@ -156,22 +163,31 @@ FondoPanel fondo=new FondoPanel();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnIniciarPartidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarPartidaActionPerformed
+/**
+*Método oyente que muesta la pantalla de menu iniciar partida. 
+*@param evt: evento al que escucha. 
+*/
+    private void muestraPantallaIniciarPartidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_muestraPantallaIniciarPartidaActionPerformed
         // TODO add your handling code here:
        MenuIniciaPartida iniciar=new MenuIniciaPartida();
        iniciar.setVisible(true);
        this.dispose();
-    }//GEN-LAST:event_btnIniciarPartidaActionPerformed
+    }//GEN-LAST:event_muestraPantallaIniciarPartidaActionPerformed
 
+/**
+*Método oyente que cierra el frame de menu principal. 
+*@param evt: evento al que escucha. 
+*/
     private void btnSalirJuegoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirJuegoActionPerformed
         // TODO add your handling code here:
        this.dispose();
     }//GEN-LAST:event_btnSalirJuegoActionPerformed
 
-    private void menuAcercaDeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAcercaDeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_menuAcercaDeActionPerformed
-
+/**
+*Método oyente que muestra información acerca de los participantes del proyecto
+*mediante un JOptionPane. 
+* @param evt: Evento al que escucha. 
+*/
     private void menuInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuInfoActionPerformed
         // TODO add your handling code here:
         JOptionPane.showMessageDialog(this, "Proyecto Final Arquitectura de Software\n" + 
@@ -179,15 +195,20 @@ FondoPanel fondo=new FondoPanel();
         "Acerca de", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_menuInfoActionPerformed
 
-    private void btnUnirsePartidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUnirsePartidaActionPerformed
+/**
+*Método oyente que muestra la pantalla de menu Unirse a Partida. 
+* @param evt: Evento al que escucha. 
+*/
+    private void menuUnirsePartidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuUnirsePartidaActionPerformed
         // TODO add your handling code here:
         MenuUnirsePartida unirse=new MenuUnirsePartida();
         unirse.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_btnUnirsePartidaActionPerformed
+    }//GEN-LAST:event_menuUnirsePartidaActionPerformed
 
     /**
-     * @param args the command line arguments
+     *Método main que ejecuta el frame de menu principal. 
+     * @param args argumento de lineas de comando.
      */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -222,29 +243,15 @@ FondoPanel fondo=new FondoPanel();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnIniciarPartida;
     private javax.swing.JButton btnSalirJuego;
-    private javax.swing.JButton btnUnirsePartida;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenu menuAcercaDe;
     private javax.swing.JMenuItem menuInfo;
+    private javax.swing.JButton menuUnirsePartida;
+    private javax.swing.JButton muestraPantallaIniciarPartida;
     // End of variables declaration//GEN-END:variables
-
-   class FondoPanel extends JPanel
-   {
-      private Image imagen; 
-
-      @Override
-      public void paint(Graphics g)
-      {
-         imagen= new ImageIcon(getClass().getResource("/img/o-ANCIENT-MAYANS-facebook.jpg")).getImage(); 
-         g.drawImage(imagen, 0, 0, getWidth(), getHeight(), this); 
-         setOpaque(false);
-         super.paint(g);
-      }    
-   }
 
 }
 

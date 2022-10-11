@@ -4,25 +4,86 @@
  */
 package Presentación;
 
-import java.awt.Graphics;
-import java.awt.Image;
-import javax.swing.ImageIcon;
-import javax.swing.JPanel;
+import javax.swing.JOptionPane;
 
 /**
+ * Frame o pantalla de MenuConfigurar, donde se muestran las opciones de
+ * configurar la partida elegidas por el usuario.
  *
- * @author cyt88
+ * @author Carlos A. Valle Encinas - David Sotelo Palafox Equipo#6
  */
 public class MenuConfigurar extends javax.swing.JFrame {
-FondoPanel fondo=new FondoPanel();
+Fondo fondo=new Fondo();
     /**
-     * Creates new form MenuConfigurar
+     * Constructor del Frame.
      */
     public MenuConfigurar() {
         this.setContentPane(fondo);  
         initComponents();
     }
 
+     /**
+     * Método que permite al usuario volver al Menu Iniciar Partida.
+     *
+     * @param evt: Evento al que escucha.
+     */
+    public void volverMenuIniciarPartida(java.awt.event.ActionEvent evt){
+      MenuIniciaPartida principal=new MenuIniciaPartida();
+      principal.setVisible(true);
+      this.dispose();
+    }
+
+    public void colorFichas(){
+    }
+
+    public void tipoTablero(){
+    }
+     
+    /**
+     * Método validaMonto que realiza las validaciones principales para el monto
+     * del usuario tales como el tamaño de caracteres y que solo se permitan
+     * numéricos.
+     *
+     * @param evt: Evento al que escucha.
+     */
+    public void validaMonto(java.awt.event.KeyEvent evt){
+      validaMonto.getText().trim(); 
+      if(validaMonto.getText().length()>=7)
+      {
+        evt.consume();
+        int msg=1; 
+        mostrarError(msg);
+      }
+      char car= evt.getKeyChar();
+      if(Character.isDigit(car)){
+
+      }
+      else
+      {
+         evt.consume();
+         getToolkit().beep();
+      }
+    }
+
+    /**
+     * Método mostrarError que recibe como parametro un entero con el tipo de
+     * error dependiendo el campo de texto que se esta validando.
+     *
+     * @param msg: Tipo mensaje.
+     */
+    public void mostrarError(int msg)
+    {
+       if(msg==1)
+       {
+         JOptionPane.showMessageDialog(null, "Solo se permiten como máximo 6 caracteres numéricos", 
+        "¡Mensaje de Advertencia!", JOptionPane.WARNING_MESSAGE);
+       }
+       if(msg==2)
+       {
+         JOptionPane.showMessageDialog(null, "Al parecer se le ha olvidado rellenar un campo!", 
+        "¡Mensaje de Error!", JOptionPane.ERROR_MESSAGE);
+       }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -33,14 +94,14 @@ FondoPanel fondo=new FondoPanel();
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        btnVolver = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        volverMenuIniciarPartida = new javax.swing.JButton();
+        btnGuardar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         cboTablero = new javax.swing.JComboBox<>();
         cboFichas = new javax.swing.JComboBox<>();
-        txtMonto = new javax.swing.JTextField();
+        validaMonto = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -48,23 +109,28 @@ FondoPanel fondo=new FondoPanel();
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Configurar Partida");
 
-        btnVolver.setBackground(new java.awt.Color(204, 255, 255));
-        btnVolver.setFont(new java.awt.Font("Segoe UI Semibold", 1, 18)); // NOI18N
-        btnVolver.setForeground(new java.awt.Color(102, 51, 0));
-        btnVolver.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/volver.png"))); // NOI18N
-        btnVolver.setText("Volver");
-        btnVolver.addActionListener(new java.awt.event.ActionListener() {
+        volverMenuIniciarPartida.setBackground(new java.awt.Color(204, 255, 255));
+        volverMenuIniciarPartida.setFont(new java.awt.Font("Segoe UI Semibold", 1, 18)); // NOI18N
+        volverMenuIniciarPartida.setForeground(new java.awt.Color(102, 51, 0));
+        volverMenuIniciarPartida.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/volver.png"))); // NOI18N
+        volverMenuIniciarPartida.setText("Volver");
+        volverMenuIniciarPartida.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnVolverActionPerformed(evt);
+                volverMenuIniciarPartidaActionPerformed(evt);
             }
         });
 
-        jButton1.setBackground(new java.awt.Color(204, 255, 255));
-        jButton1.setFont(new java.awt.Font("Segoe UI Semibold", 1, 18)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(102, 51, 0));
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/save.png"))); // NOI18N
-        jButton1.setText("Guardar");
-        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        btnGuardar.setBackground(new java.awt.Color(204, 255, 255));
+        btnGuardar.setFont(new java.awt.Font("Segoe UI Semibold", 1, 18)); // NOI18N
+        btnGuardar.setForeground(new java.awt.Color(102, 51, 0));
+        btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/save.png"))); // NOI18N
+        btnGuardar.setText("Guardar");
+        btnGuardar.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -72,65 +138,79 @@ FondoPanel fondo=new FondoPanel();
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Seleccionar Fichas:");
+        jLabel3.setText("Seleccionar Color Fichas:");
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("Seleccionar Monto Apuesta:");
+        jLabel4.setText("Ingresar Monto Apuesta:");
 
         cboTablero.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         cboFichas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
+        validaMonto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                validaMontoKeyTyped(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addComponent(btnVolver)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(62, Short.MAX_VALUE)
+                .addContainerGap(15, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3))
-                        .addGap(34, 34, 34)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(cboTablero, 0, 124, Short.MAX_VALUE)
-                            .addComponent(cboFichas, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(cboFichas, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(32, 32, 32)
+                                .addComponent(jLabel1))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(18, 18, 18)
+                                .addComponent(cboTablero, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(62, 62, 62))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel4)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(5, 5, 5)
+                                .addComponent(volverMenuIniciarPartida)))
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton1)
-                            .addComponent(txtMonto, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(46, 46, 46))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnGuardar)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(validaMonto, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
+                                .addGap(102, 102, 102))))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(22, 22, 22)
+                .addGap(23, 23, 23)
                 .addComponent(jLabel1)
-                .addGap(27, 27, 27)
+                .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(cboTablero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cboFichas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtMonto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                    .addComponent(jLabel4)
+                    .addComponent(validaMonto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnVolver)
-                    .addComponent(jButton1))
+                    .addComponent(volverMenuIniciarPartida)
+                    .addComponent(btnGuardar))
                 .addGap(32, 32, 32))
         );
 
@@ -138,39 +218,53 @@ FondoPanel fondo=new FondoPanel();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
+    /**
+     * Métdo oyente que llama al método volverMenuIniciarPrincipal. 
+     *
+     * @param evt: Evento al que escucha.
+     */
+    private void volverMenuIniciarPartidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_volverMenuIniciarPartidaActionPerformed
         // TODO add your handling code here:
-        MenuIniciaPartida inicio=new MenuIniciaPartida(); 
-        inicio.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_btnVolverActionPerformed
+        volverMenuIniciarPartida(evt);
+    }//GEN-LAST:event_volverMenuIniciarPartidaActionPerformed
+
+    /**
+     * Método oyente de validaMontoKeyTyped que llama al método validaMonto.
+     *
+     * @param evt: Evento al que escucha.
+     */
+    private void validaMontoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_validaMontoKeyTyped
+        // TODO add your handling code here:
+       validaMonto(evt);
+    }//GEN-LAST:event_validaMontoKeyTyped
+
+    /**
+     * Método oyente que guarda la configuración de la partida deseada por el
+     * usuario.
+     *
+     * @param evt: Evento al que escucha.
+     */
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        // TODO add your handling code here:    
+        if(validaMonto.getText().isEmpty())
+        {
+           int msg=2;
+           mostrarError(msg);
+        }
+    }//GEN-LAST:event_btnGuardarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnVolver;
+    private javax.swing.JButton btnGuardar;
     private javax.swing.JComboBox<String> cboFichas;
     private javax.swing.JComboBox<String> cboTablero;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JTextField txtMonto;
+    private javax.swing.JTextField validaMonto;
+    private javax.swing.JButton volverMenuIniciarPartida;
     // End of variables declaration//GEN-END:variables
-
- class FondoPanel extends JPanel
-   {
-      private Image imagen; 
-
-      @Override
-      public void paint(Graphics g)
-      {
-         imagen= new ImageIcon(getClass().getResource("/img/o-ANCIENT-MAYANS-facebook.jpg")).getImage(); 
-         g.drawImage(imagen, 0, 0, getWidth(), getHeight(), this); 
-         setOpaque(false);
-         super.paint(g);
-      }    
-   }
 
 }
 

@@ -4,24 +4,76 @@
  */
 package Presentación;
 
-import java.awt.Graphics;
-import java.awt.Image;
-import javax.swing.ImageIcon;
+
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
+ * Frame o pantalla de Pantalla Partida, donde se muestra el tablero y es donde
+ *los jugadores disfrutarán de la partida. 
  *
- * @author cyt88
+ * @author Carlos A. Valle Encinas - David Sotelo Palafox Equipo#6
  */
 public class PantallaPartida extends javax.swing.JFrame {
-FondoPanel fondo=new FondoPanel();
+Fondo fondo=new Fondo();
     /**
-     * Creates new form PantallaPartida
+     * Constructor del frame.
      */
     public PantallaPartida() {
         this.setContentPane(fondo); 
         initComponents();
+    }
+
+    public void verificaJugador(){
+    }
+
+    public void verificaTablero(){
+    }
+
+    public void verificaFichas(){
+    }
+
+    /**
+     * Método empezar partida que llama al método mensaje de confirmación y
+     * realiza las respectivas validaciones.
+     *
+     * @param evt: Evento al que escucha.
+     */
+    public void empezarPartida(java.awt.event.ActionEvent evt){
+       int msg=1;
+       mensajeConfirmación(msg);
+    }
+    
+    /**
+     * Método salir partida que llama al método mensajeConfirmación y verifica
+     * si el jugador existe.
+     *
+     * @param evt: Evento al que escucha.
+     */
+    public void salirPartida(java.awt.event.ActionEvent evt){
+       int msg=2;
+       mensajeConfirmación(msg);
+    }
+    /**
+     * Método mensajeConfirmación que despliega un mensaje al usuario
+     * preguntandole si desea empezar la partida o si desea abandonarla.
+     *
+     * @param evt: Tipo mensaje.
+     */
+    public void mensajeConfirmación(int msg) {
+      if(msg==1)
+      {
+        JOptionPane.showConfirmDialog(this, "¿Esta seguro de empezar la partida?", "Empezar Partida", 0, JOptionPane.QUESTION_MESSAGE);
+      }
+      if(msg==2)
+      {
+         int op=JOptionPane.showConfirmDialog(this, "¿Esta seguro de abandonar la partida?", "Abandonar Partida", 0, JOptionPane.QUESTION_MESSAGE); 
+         if (op == 0) {
+            MenuPrincipal principal = new MenuPrincipal();
+            principal.setVisible(true);
+            this.dispose();
+        }
+      }
     }
 
     /**
@@ -33,9 +85,26 @@ FondoPanel fondo=new FondoPanel();
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        panelTablero = new javax.swing.JPanel();
         btnSalirPartida = new javax.swing.JButton();
+        tirarCañas = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        empezarPartida = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        panelTablero.setOpaque(false);
+
+        javax.swing.GroupLayout panelTableroLayout = new javax.swing.GroupLayout(panelTablero);
+        panelTablero.setLayout(panelTableroLayout);
+        panelTableroLayout.setHorizontalGroup(
+            panelTableroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 860, Short.MAX_VALUE)
+        );
+        panelTableroLayout.setVerticalGroup(
+            panelTableroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 849, Short.MAX_VALUE)
+        );
 
         btnSalirPartida.setBackground(new java.awt.Color(204, 255, 255));
         btnSalirPartida.setFont(new java.awt.Font("Segoe UI Semibold", 1, 18)); // NOI18N
@@ -49,58 +118,107 @@ FondoPanel fondo=new FondoPanel();
             }
         });
 
+        tirarCañas.setBackground(new java.awt.Color(204, 255, 255));
+        tirarCañas.setFont(new java.awt.Font("Segoe UI Semibold", 1, 18)); // NOI18N
+        tirarCañas.setForeground(new java.awt.Color(102, 51, 0));
+        tirarCañas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/dados.png"))); // NOI18N
+        tirarCañas.setText("Tirar Cañas");
+        tirarCañas.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        tirarCañas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tirarCañasActionPerformed(evt);
+            }
+        });
+
+        empezarPartida.setBackground(new java.awt.Color(204, 255, 255));
+        empezarPartida.setFont(new java.awt.Font("Segoe UI Semibold", 1, 18)); // NOI18N
+        empezarPartida.setForeground(new java.awt.Color(102, 51, 0));
+        empezarPartida.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/start.png"))); // NOI18N
+        empezarPartida.setText("Empezar Partida");
+        empezarPartida.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        empezarPartida.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                empezarPartidaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(369, Short.MAX_VALUE)
-                .addComponent(btnSalirPartida)
-                .addContainerGap())
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(37, 37, 37)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(tirarCañas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(29, 29, 29)
+                                .addComponent(btnSalirPartida)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 13, Short.MAX_VALUE)
+                        .addComponent(empezarPartida)))
+                .addGap(18, 18, 18)
+                .addComponent(panelTablero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(157, 157, 157)
+                .addGap(18, 18, 18)
+                .addComponent(panelTablero, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(55, 55, 55)
+                .addComponent(tirarCañas)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(empezarPartida)
+                .addGap(35, 35, 35)
                 .addComponent(btnSalirPartida)
-                .addContainerGap(157, Short.MAX_VALUE))
+                .addGap(16, 16, 16))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Método oyente que llama al método salirPartida. 
+     *
+     * @param evt: Evento al que escucha.
+     */
     private void btnSalirPartidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirPartidaActionPerformed
         // TODO add your handling code here:
-       int op=JOptionPane.showConfirmDialog(this, "¿Esta seguro de abandonar la partida?", "Abandonar Partida", 0);
-
-        if (op == 0) {
-            MenuPrincipal principal = new MenuPrincipal();
-            principal.setVisible(true);
-            this.dispose();
-        }
-        if (op == 1) {
-
-        }
+       salirPartida(evt);
     }//GEN-LAST:event_btnSalirPartidaActionPerformed
+
+    private void tirarCañasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tirarCañasActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tirarCañasActionPerformed
+    
+    /**
+    *Método oyente que llama al método empezarPartida.
+    *@param evt: Evento al que escucha. 
+    */
+    private void empezarPartidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_empezarPartidaActionPerformed
+        // TODO add your handling code here:
+        empezarPartida(evt);
+    }//GEN-LAST:event_empezarPartidaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSalirPartida;
+    private javax.swing.JButton empezarPartida;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel panelTablero;
+    private javax.swing.JButton tirarCañas;
     // End of variables declaration//GEN-END:variables
 
-class FondoPanel extends JPanel
-   {
-      private Image imagen; 
-
-      @Override
-      public void paint(Graphics g)
-      {
-         imagen= new ImageIcon(getClass().getResource("/img/TableroMax.jpeg")).getImage(); 
-         g.drawImage(imagen, 0, 0, getWidth(), getHeight(), this); 
-         setOpaque(false);
-         super.paint(g);
-      }    
-   }
 
 }

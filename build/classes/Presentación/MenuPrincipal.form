@@ -8,9 +8,6 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Acerca De"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuAcercaDeActionPerformed"/>
-          </Events>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="menuInfo">
               <Properties>
@@ -55,8 +52,8 @@
                   <Group type="102" attributes="0">
                       <EmptySpace min="-2" pref="97" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="btnUnirsePartida" min="-2" pref="230" max="-2" attributes="0"/>
-                          <Component id="btnIniciarPartida" min="-2" pref="230" max="-2" attributes="0"/>
+                          <Component id="menuUnirsePartida" min="-2" pref="230" max="-2" attributes="0"/>
+                          <Component id="muestraPantallaIniciarPartida" min="-2" pref="230" max="-2" attributes="0"/>
                           <Component id="btnSalirJuego" alignment="0" min="-2" pref="230" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -74,9 +71,9 @@
           <Group type="102" alignment="1" attributes="0">
               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="btnIniciarPartida" min="-2" pref="56" max="-2" attributes="0"/>
+              <Component id="muestraPantallaIniciarPartida" min="-2" pref="56" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="btnUnirsePartida" min="-2" pref="57" max="-2" attributes="0"/>
+              <Component id="menuUnirsePartida" min="-2" pref="57" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="btnSalirJuego" min="-2" max="-2" attributes="0"/>
               <EmptySpace pref="29" max="32767" attributes="0"/>
@@ -96,7 +93,7 @@
         <Property name="text" type="java.lang.String" value="Patolli"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="btnIniciarPartida">
+    <Component class="javax.swing.JButton" name="muestraPantallaIniciarPartida">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="cc" type="rgb"/>
@@ -114,10 +111,10 @@
         <Property name="horizontalTextPosition" type="int" value="2"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnIniciarPartidaActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="muestraPantallaIniciarPartidaActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="btnUnirsePartida">
+    <Component class="javax.swing.JButton" name="menuUnirsePartida">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="cc" type="rgb"/>
@@ -135,7 +132,7 @@
         <Property name="horizontalTextPosition" type="int" value="2"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnUnirsePartidaActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuUnirsePartidaActionPerformed"/>
       </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JButton()"/>
