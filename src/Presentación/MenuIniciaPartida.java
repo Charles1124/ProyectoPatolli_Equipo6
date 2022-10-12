@@ -27,6 +27,12 @@ Fondo fondo=new Fondo();
         tamañoConfig();
     }
 
+    public void confirmaJugador(){ 
+    }
+
+    public void confirmaApuesta(){
+    }
+
     /**
      * Método tamañoConfig el cual permite ajustar el tamaño del icono
      * configuración ubicado en el botón btnConfig.
