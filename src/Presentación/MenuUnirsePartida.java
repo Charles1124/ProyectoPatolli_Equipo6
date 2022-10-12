@@ -22,12 +22,6 @@ Fondo fondo=new Fondo();
         this.setContentPane(fondo); 
         initComponents();
     }
-  
-    public void confirmaJugador(){
-    }
-
-    public void confirmaApuesta(){
-    }
 
     /**
      * Método validaNombre que realiza las validaciones principales para el nick
