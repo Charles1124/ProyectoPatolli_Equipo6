@@ -38,6 +38,9 @@ Fondo fondo=new Fondo();
 
     public void tipoTablero(){
     }
+
+    public void confirmaApuesta(){
+    }
      
     /**
      * Método validaMonto que realiza las validaciones principales para el monto
